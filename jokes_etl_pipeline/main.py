@@ -19,20 +19,26 @@ def get_data():
 def commit_to_postgres():
 
     # create a ConfigParser object
-    # config = configparser.ConfigParser()
-    # # read the configuration file
-    # config.read('postgres_db_credentials.txt')
+    config = configparser.ConfigParser()
+    # read the configuration file
+    config.read('/Users/jobdulo/Documents/etl_sandbox/jokes_etl_pipeline/postgres_db_credentials.txt')
 
-    # # read the credentials from file
-    # username = config.get('Credentials', 'username')
-    # host = config.get('Credentials', 'host')
-    # password = config.get('Credentials', 'password')
-    # port = config.get('Credentials', 'port')
-    # db_name = config.get('Credentials', 'db_name')
+    # read the credentials from file
+    username = config.get('Credentials', 'username')
+    host = config.get('Credentials', 'host')
+    password = config.get('Credentials', 'password')
+    port = config.get('Credentials', 'port')
+    db_name = config.get('Credentials', 'db_name')
 
     engine = create_engine(
-        "postgresql://postgres:ColynX360@localhost:5432/jobdulo"
-    )
+        
+        'postgresql://{0}:{1}@{2}:{3}/{4}'.format(
+            username,
+            password,
+            host,
+            port,
+            db_name
+    ))
 
     # sql syntax to create the table that would hold our data
     create_table_query = """ 
